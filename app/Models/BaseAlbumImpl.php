@@ -100,14 +100,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property bool                       $grants_full_photo_access
  * @property bool                       $grants_download
  * @property Collection                 $shared_with
- * @property int|null                   $shared_with_count
  * @property string|null                $password
  * @property bool                       $is_password_required
  * @property PhotoSortingCriterion|null $sorting
  * @property AlbumProtectionPolicy      $policy
- * @property int                        $is_share_button_visible  // NOT USED
- * @property string|null                $sorting_col
- * @property string|null                $sorting_order
  */
 class BaseAlbumImpl extends Model implements HasRandomID
 {
@@ -183,6 +179,11 @@ class BaseAlbumImpl extends Model implements HasRandomID
 	 * The relationships that should always be eagerly loaded by default.
 	 */
 	protected $with = ['owner'];
+
+	protected function _toArray(): array
+	{
+		return parent::toArray();
+	}
 
 	/**
 	 * Returns the relationship between an album and its owner.
